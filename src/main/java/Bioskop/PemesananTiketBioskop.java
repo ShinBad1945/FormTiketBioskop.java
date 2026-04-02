@@ -1,41 +1,38 @@
 package Bioskop;
 
+// Class Pemesanan Tiket Bioskop
 public class PemesananTiketBioskop {
 
     String namaPenonton;
     String judulFilm;
     String jamTayang;
     int jumlahTiket;
+    int hargaTiket;
 
-    void dataNamaPenonton(String namaPenonton){
+    // CONSTRUCTOR
+    public PemesananTiketBioskop(String namaPenonton, String judulFilm,
+                                 String jamTayang, int jumlahTiket, int hargaTiket){
         this.namaPenonton = namaPenonton;
-    }
-
-    void dataJudulFilm(String judulFilm){
         this.judulFilm = judulFilm;
-    }
-
-    void dataJamTayang(String jamTayang){
         this.jamTayang = jamTayang;
-    }
-
-    void dataJumlahTiket(int jumlahTiket){
         this.jumlahTiket = jumlahTiket;
+        this.hargaTiket = hargaTiket;
     }
 
-    String cetakNamaPenonton(){
-        return namaPenonton;
+    // METHOD HITUNG TOTAL
+    int hitungTotal(){
+        return jumlahTiket * hargaTiket;
     }
 
-    String cetakJudulFilm(){
-        return judulFilm;
-    }
-
-    String cetakJamTayang(){
-        return jamTayang;
-    }
-
-    int cetakJumlahTiket(){
-        return jumlahTiket;
+    // METHOD CETAK
+    String cetakTiket(){
+        return "===== TIKET BIOSKOP =====\n"+
+               "Nama        : "+namaPenonton+"\n"+
+               "Film        : "+judulFilm+"\n"+
+               "Jam Tayang  : "+jamTayang+"\n"+
+               "Jumlah Tiket: "+jumlahTiket+"\n"+
+               "Harga       : Rp"+hargaTiket+"\n"+
+               "Total Bayar : Rp"+hitungTotal()+"\n"+
+               "=========================";
     }
 }

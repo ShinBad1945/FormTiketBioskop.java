@@ -198,7 +198,6 @@ public class FormTiketBioskop extends javax.swing.JFrame {
 String nama = txtNama.getText();
 String film = cmbFilm.getSelectedItem().toString();
 String jam = cmbJam.getSelectedItem().toString();
-
 int jumlah = Integer.parseInt(txtJumlah.getText());
 
 int harga = 0;
@@ -218,18 +217,13 @@ else if(film.equals("Jurassic World")){
 else if(film.equals("Transformer Rise Beast")){
     harga = 47000;
 }
+ // ================= OBJECT (PAKAI CONSTRUCTOR) =================
+    PemesananTiketBioskop tiket = new PemesananTiketBioskop(
+        nama, film, jam, jumlah, harga
+    );
 
-int total = harga * jumlah;
-
-txtOutput.setText(
-"===== TIKET BIOSKOP =====\n"+
-"Nama        : "+nama+"\n"+
-"Film        : "+film+"\n"+
-"Jam Tayang  : "+jam+"\n"+
-"Jumlah Tiket: "+jumlah+"\n"+
-"Total Bayar : Rp"+total+"\n"+
-"========================="
-);        
+    // ================= OUTPUT =================
+    txtOutput.setText(tiket.cetakTiket());     
     }//GEN-LAST:event_btnCetakActionPerformed
 
     /**

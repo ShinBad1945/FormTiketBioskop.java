@@ -20,12 +20,12 @@ public class PemesananTiketBioskop {
     }
 
     // METHOD HITUNG TOTAL
-    int hitungTotal(){
+    public int hitungTotal(){
         return jumlahTiket * hargaTiket;
     }
 
     // METHOD CETAK
-    String cetakTiket(){
+    public String cetakTiket(){
         return "===== TIKET BIOSKOP =====\n"+
                "Nama        : "+namaPenonton+"\n"+
                "Film        : "+judulFilm+"\n"+

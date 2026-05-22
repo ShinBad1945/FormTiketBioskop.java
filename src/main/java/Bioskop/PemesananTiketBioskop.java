@@ -1,75 +1,44 @@
 package Bioskop;
 
 public class PemesananTiketBioskop {
+    
+    protected String namaPembeli;
+    protected String namaFilm;
+    protected String studio; //Jam Tayang
+    protected int jumlahTiket;
+    protected int hargaDasar; 
 
-    // atribut dibuat PRIVATE (enkapsulasi)
-    private String namaPenonton;
-    private String judulFilm;
-    private String jamTayang;
-    private int jumlahTiket;
-    private int hargaTiket;
-
-    // CONSTRUCTOR
-    public PemesananTiketBioskop(String namaPenonton, String judulFilm,
-                                 String jamTayang, int jumlahTiket, int hargaTiket){
-        this.namaPenonton = namaPenonton;
-        this.judulFilm = judulFilm;
-        this.jamTayang = jamTayang;
+    public PemesananTiketBioskop(String namaPembeli, String namaFilm, String studio, int jumlahTiket, int hargaDasar) {
+        this.namaPembeli = namaPembeli;
+        this.namaFilm = namaFilm;
+        this.studio = studio;
         this.jumlahTiket = jumlahTiket;
-        this.hargaTiket = hargaTiket;
+        this.hargaDasar = hargaDasar;
     }
 
-    public String getNamaPenonton(){
-        return namaPenonton;
+    public int hitungTotal() {
+        return hargaDasar * jumlahTiket;
     }
 
-    public void setNamaPenonton(String namaPenonton){
-        this.namaPenonton = namaPenonton;
+    public String getNama() {
+        return namaPembeli;
     }
 
-    public String getJudulFilm(){
-        return judulFilm;
+    public String getFilm() {
+        return namaFilm;
     }
 
-    public void setJudulFilm(String judulFilm){
-        this.judulFilm = judulFilm;
+    public String getJam() {
+        return studio; 
     }
 
-    public String getJamTayang(){
-        return jamTayang;
-    }
-
-    public void setJamTayang(String jamTayang){
-        this.jamTayang = jamTayang;
-    }
-
-    public int getJumlahTiket(){
+    public int getJumlah() {
         return jumlahTiket;
     }
-
-    public void setJumlahTiket(int jumlahTiket){
-        this.jumlahTiket = jumlahTiket;
+    public void infoPemesanan() {
+        System.out.println("Tiket berhasil dipesan untuk film: " + namaFilm);
     }
-
-    public int getHargaTiket(){
-        return hargaTiket;
-    }
-
-    public void setHargaTiket(int hargaTiket){
-        this.hargaTiket = hargaTiket;
-    }
-
-    // method hitung total
-    public int hitungTotal(){
-        return jumlahTiket * hargaTiket;
-    }
-
-    // method cetak
-    public String cetakTiket(){
-        return "Nama        : "+namaPenonton+"\n"+
-               "Film        : "+judulFilm+"\n"+
-               "Jam Tayang  : "+jamTayang+"\n"+
-               "Jumlah Tiket: "+jumlahTiket+"\n"+
-               "Total Bayar : Rp"+hitungTotal();
+    public void infoPemesanan(String statusPembayaran) {
+        System.out.println("Tiket film: " + namaFilm + " | Status: " + statusPembayaran);
     }
 }

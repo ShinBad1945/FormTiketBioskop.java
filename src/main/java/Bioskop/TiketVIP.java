@@ -1,31 +1,15 @@
 package Bioskop;
 
 public class TiketVIP extends PemesananTiketBioskop {
+    // Biaya tambahan khusus untuk fasilitas VIP Studio
+    private final int biayaTambahanVIP = 15000;
 
-    private int biayaTambahan = 20000;
-
-    public TiketVIP(String namaPenonton, String judulFilm,
-                    String jamTayang, int jumlahTiket, int hargaTiket){
-        super(namaPenonton, judulFilm, jamTayang, jumlahTiket, hargaTiket);
+    public TiketVIP(String namaPembeli, String namaFilm, String studio, int jumlahTiket, int hargaDasar) {
+        super(namaPembeli, namaFilm, studio, jumlahTiket, hargaDasar);
     }
-
-    public int getBiayaTambahan(){
-        return biayaTambahan;
-    }
-
-    public void setBiayaTambahan(int biayaTambahan){
-        this.biayaTambahan = biayaTambahan;
-    }
-
     @Override
-    public int hitungTotal(){
-        return (getJumlahTiket() * getHargaTiket()) + biayaTambahan;
-    }
-
-    @Override
-    public String cetakTiket(){
-        return "=== TIKET VIP ===\n" +
-               super.cetakTiket() +
-               "\nBiaya Tambahan: Rp"+biayaTambahan;
+    public int hitungTotal() {
+        // Menambahkan biaya VIP ke dalam kalkulasi total harga tiket
+        return (hargaDasar + biayaTambahanVIP) * jumlahTiket;
     }
 }

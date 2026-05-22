@@ -9,16 +9,34 @@ package Bioskop;
  * @author panji
  */
 public class FormTiketBioskop extends javax.swing.JFrame {
+    javax.swing.table.DefaultTableModel model;
 
     /**
-     * Creates new form FormTiketBioskop
+     * Creates new form FormTiketBioskopAnyar
      */
     public FormTiketBioskop() {
         initComponents();
-        txtOutput.setEditable(false);
-        txtOutput1.setEditable(false);
+        String[] kolom = {"Jenis", "Nama", "Film", "Jam", "Jumlah", "Total"};
+        model = new javax.swing.table.DefaultTableModel(null, kolom);
+        jTable.setModel(model);
+        
+        txtOutput.setText(
+            "DAFTAR FILM BIOSKOP\n\n" +
+            "1. Avengers Endgame        - Rp50.000\n" +
+            "2. Spiderman No Way Home   - Rp45.000\n" +
+            "3. Fast & Furious 10       - Rp40.000\n" +
+            "4. Jurassic World          - Rp42.000\n" +
+            "5. Transformer Rise Beast  - Rp47.000\n\n" +
+            "Jenis VIP otomatis menambah biaya Rp15.000"
+        );
     }
-
+    private void batal() {
+        txtNama.setText("");
+        txtJumlah.setText("");
+        cmbFilm.setSelectedIndex(0);
+        cmbJam.setSelectedIndex(0);
+        cmbJenisTiket.setSelectedIndex(0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,38 +46,28 @@ public class FormTiketBioskop extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         txtNama = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtJumlah = new javax.swing.JTextField();
-        cmbJam = new javax.swing.JComboBox<>();
-        cmbFilm = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        btnCetak = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtOutput = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtOutput1 = new javax.swing.JTextArea();
+        jTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnSimpan = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btnHapus = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btnBatal = new javax.swing.JButton();
+        txtJumlah = new javax.swing.JTextField();
+        btnClose = new javax.swing.JButton();
+        cmbFilm = new javax.swing.JComboBox<>();
+        btnCetak = new javax.swing.JButton();
         cmbJenisTiket = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-
-        jMenu1.setText("jMenu1");
-
-        jMenu2.setText("jMenu2");
-
-        jMenu3.setText("jMenu3");
+        cmbJam = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("SISTEM PEMESANAN TIKET BIOSKOP");
-
-        jLabel2.setText("NAMA : ");
 
         txtNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,31 +75,65 @@ public class FormTiketBioskop extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("JAM TAYANG :");
+        txtOutput.setColumns(20);
+        txtOutput.setRows(5);
+        txtOutput.setText("DAFTAR FILM BIOSKOP\n1) Avengers Endgame (Harga: Rp50.000)\n2) Spiderman No Way Home (Harga: Rp45.000)\n3) Fast & Furious 10 (Harga: Rp40.000)\n4) Jurassic World (Harga: Rp42.000)\n5) Transformer Rise Beast (Harga: Rp47.000)");
+        jScrollPane1.setViewportView(txtOutput);
 
-        jLabel4.setText("PILIH FILM :");
+        jLabel1.setText("SISTEM PEMESANAN TIKET BIOSKOP");
 
-        jLabel5.setText("JUMLAH TIKET :");
+        jLabel2.setText("NAMA :");
 
-        txtJumlah.addActionListener(new java.awt.event.ActionListener() {
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "JENIS", "NAMA", "FILM", "JAM", "JUMLAH", "TOTAL"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable);
+
+        jLabel3.setText("PILIH FILM :");
+
+        jLabel4.setText("JAM TAYANG :");
+
+        btnSimpan.setText("SIMPAN");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtJumlahActionPerformed(evt);
+                btnSimpanActionPerformed(evt);
             }
         });
 
-        cmbJam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "13:00", "16:00", "19:00", "21:00" }));
-        cmbJam.addActionListener(new java.awt.event.ActionListener() {
+        jLabel5.setText("JENIS TIKET :");
+
+        btnHapus.setText("HAPUS");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbJamActionPerformed(evt);
+                btnHapusActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("JUMLAH TIKET :");
+
+        btnBatal.setText("BATAL");
+        btnBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBatalActionPerformed(evt);
+            }
+        });
+
+        btnClose.setText("CLOSE");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
             }
         });
 
         cmbFilm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Avengers Endgame", "Spiderman No Way Home", "Fast & Furious 10", "Jurassic World", "Transformer Rise Beast" }));
-        cmbFilm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbFilmActionPerformed(evt);
-            }
-        });
 
         btnCetak.setText("CETAK TIKET");
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
@@ -100,109 +142,105 @@ public class FormTiketBioskop extends javax.swing.JFrame {
             }
         });
 
-        txtOutput.setColumns(20);
-        txtOutput.setRows(5);
-        jScrollPane1.setViewportView(txtOutput);
-
-        txtOutput1.setColumns(20);
-        txtOutput1.setRows(5);
-        txtOutput1.setText("DAFTAR FILM BIOSKOP\n\n1. Avengers Endgame        - Rp50.000\n2. Spiderman No Way Home   - Rp45.000\n3. Fast & Furious 10       - Rp40.000\n4. Jurassic World          - Rp42.000\n5. Transformer Rise Beast  - Rp47.000\n\nJenis VIP (Nambah 20000)");
-        jScrollPane2.setViewportView(txtOutput1);
-
         cmbJenisTiket.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reguler", "VIP" }));
-        cmbJenisTiket.addActionListener(new java.awt.event.ActionListener() {
+
+        cmbJam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "13:00", "16:00", "19:00", "21:00" }));
+        cmbJam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbJenisTiketActionPerformed(evt);
+                cmbJamActionPerformed(evt);
             }
         });
-
-        jLabel7.setText("JENIS TIKET :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(215, 215, 215))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCetak)
-                            .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel5))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(cmbJenisTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(cmbJam, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(cmbFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbJenisTiket, 0, 200, Short.MAX_VALUE)
+                                    .addComponent(txtJumlah)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel6)
-                .addGap(65, 65, 65))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addComponent(cmbJam, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNama)
+                            .addComponent(cmbFilm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(249, 249, 249)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSimpan)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnHapus)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBatal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnClose)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCetak)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(cmbFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cmbJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))))
-                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbJenisTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel2)
+                            .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cmbFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(cmbJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(btnCetak)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                            .addComponent(cmbJenisTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSimpan)
+                    .addComponent(btnHapus)
+                    .addComponent(btnBatal)
+                    .addComponent(btnClose)
+                    .addComponent(btnCetak))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -212,54 +250,104 @@ public class FormTiketBioskop extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamaActionPerformed
 
-    private void txtJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJumlahActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtJumlahActionPerformed
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+    try {
+            String nama = txtNama.getText();
+            String film = cmbFilm.getSelectedItem().toString();
+            String jam = cmbJam.getSelectedItem().toString();
+            String jenis = cmbJenisTiket.getSelectedItem().toString();
+            
+            if (nama.isEmpty() || txtJumlah.getText().isEmpty()) {
+                return;
+            }
+            
+            int jumlah = Integer.parseInt(txtJumlah.getText());
+            int harga = 0;
+            
+            if (film.equals("Avengers Endgame"))          harga = 50000;
+            else if (film.equals("Spiderman No Way Home")) harga = 45000;
+            else if (film.equals("Fast & Furious 10"))     harga = 40000;
+            else if (film.equals("Jurassic World"))        harga = 42000;
+            else if (film.equals("Transformer Rise Beast"))harga = 47000;
 
-    private void cmbFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFilmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbFilmActionPerformed
+            PemesananTiketBioskop tiket;
+            if (jenis.equals("VIP")) {
+                tiket = new TiketVIP(nama, film, jam, jumlah, harga);
+            } else {
+                tiket = new TiketReguler(nama, film, jam, jumlah, harga);
+            }
+
+            model.addRow(new Object[]{
+                jenis,
+                tiket.getNama(),       
+                tiket.getFilm(),
+                tiket.getJam(),
+                tiket.getJumlah(),
+                tiket.hitungTotal()
+            });
+            batal(); 
+            
+        } catch (NumberFormatException e) {
+        }
+     // <--- PASTIKAN ADA SATU KURUNG TUTUP DI SINI UNTUK MENUTUP BUTTON// TODO add your handling code here:
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+int barisTerpilih = jTable.getSelectedRow();
+    if (barisTerpilih >= 0) {
+        model.removeRow(barisTerpilih); 
+    }     // TODO add your handling code here:
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+batal();   // TODO add your handling code here:
+    }//GEN-LAST:event_btnBatalActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-String nama = txtNama.getText();
-    String film = cmbFilm.getSelectedItem().toString();
-    String jam = cmbJam.getSelectedItem().toString();
-    int jumlah = Integer.parseInt(txtJumlah.getText());
-    String jenis = cmbJenisTiket.getSelectedItem().toString();
+     try {
+            String nama = txtNama.getText();
+            String film = cmbFilm.getSelectedItem().toString();
+            String jam = cmbJam.getSelectedItem().toString();
+            String jenis = cmbJenisTiket.getSelectedItem().toString();
+            
+            if (nama.isEmpty() || txtJumlah.getText().isEmpty()) {
+                return;
+            }
+            
+            int jumlah = Integer.parseInt(txtJumlah.getText());
+            int harga = 0;
+            if (film.equals("Avengers Endgame"))          harga = 50000;
+            else if (film.equals("Spiderman No Way Home")) harga = 45000;
+            else if (film.equals("Fast & Furious 10"))     harga = 40000;
+            else if (film.equals("Jurassic World"))        harga = 42000;
+            else if (film.equals("Transformer Rise Beast"))harga = 47000;
 
-    int harga = 0;
-
-    if(film.equals("Avengers Endgame")){
-        harga = 50000;
-    } else if(film.equals("Spiderman No Way Home")){
-        harga = 45000;
-    } else if(film.equals("Fast & Furious 10")){
-        harga = 40000;
-    } else if(film.equals("Jurassic World")){
-        harga = 42000;
-    } else if(film.equals("Transformer Rise Beast")){
-        harga = 47000;
-    }
-
-    PemesananTiketBioskop tiket;
-
-    // INHERITANCE 
-    if(jenis.equals("VIP")){
-        tiket = new TiketVIP(nama, film, jam, jumlah, harga);
-    } else {
-        tiket = new TiketReguler(nama, film, jam, jumlah, harga);
-    }
-    // ================= OUTPUT =================
-    txtOutput.setText(tiket.cetakTiket());     
+            PemesananTiketBioskop tiket;
+            if (jenis.equals("VIP")) {
+                tiket = new TiketVIP(nama, film, jam, jumlah, harga);
+            } else {
+                tiket = new TiketReguler(nama, film, jam, jumlah, harga);
+            }
+            
+            String hasilCetak = "=== TIKET BIOSKOP ===\n" +
+                                "Nama: " + tiket.getNama() + "\n" +
+                                "Film: " + tiket.getFilm() + "\n" +
+                                "Jam: " + tiket.getJam() + "\n" +
+                                "Jumlah: " + tiket.getJumlah() + "\n" +
+                                "Total Bayar: Rp" + tiket.hitungTotal();
+            txtOutput.setText(hasilCetak); // Mengisi JTextArea     
+        } catch (NumberFormatException e) {
+            // Mengabaikan error
+        }   // TODO add your handling code here:
     }//GEN-LAST:event_btnCetakActionPerformed
 
     private void cmbJamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbJamActionPerformed
-
-    private void cmbJenisTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJenisTiketActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbJenisTiketActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,6 +375,7 @@ String nama = txtNama.getText();
             java.util.logging.Logger.getLogger(FormTiketBioskop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -297,7 +386,11 @@ String nama = txtNama.getText();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnCetak;
+    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnSimpan;
     private javax.swing.JComboBox<String> cmbFilm;
     private javax.swing.JComboBox<String> cmbJam;
     private javax.swing.JComboBox<String> cmbJenisTiket;
@@ -307,15 +400,11 @@ String nama = txtNama.getText();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextField txtJumlah;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextArea txtOutput;
-    private javax.swing.JTextArea txtOutput1;
     // End of variables declaration//GEN-END:variables
 }

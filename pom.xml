@@ -11,4 +11,5 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.mycompany.tugas01_praktikumoop.Tugas01_PraktikumOOP</exec.mainClass>
     </properties>
+    <name>Tugas_PraktikumOOP</name>
 </project>

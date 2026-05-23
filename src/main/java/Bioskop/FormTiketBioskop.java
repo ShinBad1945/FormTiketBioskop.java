@@ -270,7 +270,7 @@ public class FormTiketBioskop extends javax.swing.JFrame {
             else if (film.equals("Jurassic World"))        harga = 42000;
             else if (film.equals("Transformer Rise Beast"))harga = 47000;
 
-            PemesananTiketBioskop tiket;
+            Tiket tiket;
             if (jenis.equals("VIP")) {
                 tiket = new TiketVIP(nama, film, jam, jumlah, harga);
             } else {
@@ -325,13 +325,13 @@ dispose();        // TODO add your handling code here:
             else if (film.equals("Fast & Furious 10"))     harga = 40000;
             else if (film.equals("Jurassic World"))        harga = 42000;
             else if (film.equals("Transformer Rise Beast"))harga = 47000;
-
-            PemesananTiketBioskop tiket;
-            if (jenis.equals("VIP")) {
-                tiket = new TiketVIP(nama, film, jam, jumlah, harga);
-            } else {
-                tiket = new TiketReguler(nama, film, jam, jumlah, harga);
-            }
+            
+        Tiket tiket; 
+        if (jenis.equals("VIP")) {
+            tiket = new TiketVIP(nama, film, jam, jumlah, harga);
+        } else {
+            tiket = new TiketReguler(nama, film, jam, jumlah, harga);
+        }
             
             String hasilCetak = "=== TIKET BIOSKOP ===\n" +
                                 "Nama: " + tiket.getNama() + "\n" +

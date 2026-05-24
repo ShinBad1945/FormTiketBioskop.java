@@ -77,7 +77,6 @@ public class FormTiketBioskop extends javax.swing.JFrame {
 
         txtOutput.setColumns(20);
         txtOutput.setRows(5);
-        txtOutput.setText("DAFTAR FILM BIOSKOP\n1) Avengers Endgame (Harga: Rp50.000)\n2) Spiderman No Way Home (Harga: Rp45.000)\n3) Fast & Furious 10 (Harga: Rp40.000)\n4) Jurassic World (Harga: Rp42.000)\n5) Transformer Rise Beast (Harga: Rp47.000)");
         jScrollPane1.setViewportView(txtOutput);
 
         jLabel1.setText("SISTEM PEMESANAN TIKET BIOSKOP");
@@ -288,6 +287,7 @@ public class FormTiketBioskop extends javax.swing.JFrame {
             batal(); 
             
         } catch (NumberFormatException e) {
+            // Abaikan error input string pada jumlah
         }
      // <--- PASTIKAN ADA SATU KURUNG TUTUP DI SINI UNTUK MENUTUP BUTTON// TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
@@ -309,40 +309,59 @@ dispose();        // TODO add your handling code here:
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
      try {
-            String nama = txtNama.getText();
-            String film = cmbFilm.getSelectedItem().toString();
-            String jam = cmbJam.getSelectedItem().toString();
-            String jenis = cmbJenisTiket.getSelectedItem().toString();
-            
-            if (nama.isEmpty() || txtJumlah.getText().isEmpty()) {
-                return;
-            }
-            
-            int jumlah = Integer.parseInt(txtJumlah.getText());
-            int harga = 0;
-            if (film.equals("Avengers Endgame"))          harga = 50000;
-            else if (film.equals("Spiderman No Way Home")) harga = 45000;
-            else if (film.equals("Fast & Furious 10"))     harga = 40000;
-            else if (film.equals("Jurassic World"))        harga = 42000;
-            else if (film.equals("Transformer Rise Beast"))harga = 47000;
-            
-        Tiket tiket; 
+        String nama = txtNama.getText();
+        String film = cmbFilm.getSelectedItem().toString();
+        String jam = cmbJam.getSelectedItem().toString();
+        String jenis = cmbJenisTiket.getSelectedItem().toString();
+        
+        if (nama.isEmpty() || txtJumlah.getText().isEmpty()) {
+            return;
+        }
+        
+        int jumlah = Integer.parseInt(txtJumlah.getText());
+        int harga = 0;
+        if (film.equals("Avengers Endgame"))          harga = 50000;
+        else if (film.equals("Spiderman No Way Home")) harga = 45000;
+        else if (film.equals("Fast & Furious 10"))     harga = 40000;
+        else if (film.equals("Jurassic World"))        harga = 42000;
+        else if (film.equals("Transformer Rise Beast"))harga = 47000;
+
+        // ==================== 1. PROSES UPCASTING ====================
+        Tiket tiket;
         if (jenis.equals("VIP")) {
             tiket = new TiketVIP(nama, film, jam, jumlah, harga);
         } else {
             tiket = new TiketReguler(nama, film, jam, jumlah, harga);
         }
-            
-            String hasilCetak = "=== TIKET BIOSKOP ===\n" +
-                                "Nama: " + tiket.getNama() + "\n" +
-                                "Film: " + tiket.getFilm() + "\n" +
-                                "Jam: " + tiket.getJam() + "\n" +
-                                "Jumlah: " + tiket.getJumlah() + "\n" +
-                                "Total Bayar: Rp" + tiket.hitungTotal();
-            txtOutput.setText(hasilCetak); // Mengisi JTextArea     
-        } catch (NumberFormatException e) {
-            // Mengabaikan error
-        }   // TODO add your handling code here:
+        
+        // ==================== 2. PROSES DOWNCASTING ====================
+        String pesanTambahan = "";
+        if (tiket instanceof TiketVIP) {
+            TiketVIP TiketVip = (TiketVIP) tiket;
+            pesanTambahan = "Fasilitas    : Free Snack + Popcorn (VIP Benefit)";
+        } else {
+            TiketReguler tiketReguler = (TiketReguler) tiket;
+            pesanTambahan = "Fasilitas    : Standar Seat";
+        }
+        
+        // ==================== 3. TAMPILKAN KE JTEXTAREA (SESUAI MODUL) ====================
+        // Kosongkan dulu teks bawaan JTextArea sebelum cetak nota baru
+        txtOutput.setText(""); 
+        
+        // Gunakan append bertingkat seperti di modul halaman 112
+        txtOutput.append("=== NOTA PEMESANAN TIKET ===\n");
+        txtOutput.append("--------------------------------------\n");
+        txtOutput.append("Nama         : " + tiket.getNama() + "\n");
+        txtOutput.append("Film         : " + tiket.getFilm() + "\n");
+        txtOutput.append("Jam Tayang   : " + tiket.getJam() + "\n");
+        txtOutput.append("Jumlah Tiket : " + tiket.getJumlah() + "\n");
+        txtOutput.append("Total Bayar  : Rp" + tiket.hitungTotal() + "\n");
+        txtOutput.append("--------------------------------------\n");
+        txtOutput.append(pesanTambahan + "\n"); // Bukti Downcasting sukses
+        
+    } catch (NumberFormatException e) {
+        // Abaikan error angka
+    }// TODO add your handling code here:
     }//GEN-LAST:event_btnCetakActionPerformed
 
     private void cmbJamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJamActionPerformed

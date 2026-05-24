@@ -154,7 +154,6 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="DAFTAR FILM BIOSKOP&#xa;1) Avengers Endgame (Harga: Rp50.000)&#xa;2) Spiderman No Way Home (Harga: Rp45.000)&#xa;3) Fast &amp; Furious 10 (Harga: Rp40.000)&#xa;4) Jurassic World (Harga: Rp42.000)&#xa;5) Transformer Rise Beast (Harga: Rp47.000)"/>
           </Properties>
         </Component>
       </SubComponents>

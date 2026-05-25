@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Bioskop;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -10,6 +12,7 @@ package Bioskop;
  */
 public class FormTiketBioskop extends javax.swing.JFrame {
     javax.swing.table.DefaultTableModel model;
+    Tiket tiket;
 
     /**
      * Creates new form FormTiketBioskopAnyar
@@ -250,46 +253,45 @@ public class FormTiketBioskop extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNamaActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-    try {
+   if (txtNama.getText().isEmpty() || txtJumlah.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Data tidak boleh kosong untuk disimpan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
             String nama = txtNama.getText();
             String film = cmbFilm.getSelectedItem().toString();
             String jam = cmbJam.getSelectedItem().toString();
-            String jenis = cmbJenisTiket.getSelectedItem().toString();
-            
-            if (nama.isEmpty() || txtJumlah.getText().isEmpty()) {
-                return;
-            }
-            
             int jumlah = Integer.parseInt(txtJumlah.getText());
-            int harga = 0;
             
-            if (film.equals("Avengers Endgame"))          harga = 50000;
-            else if (film.equals("Spiderman No Way Home")) harga = 45000;
-            else if (film.equals("Fast & Furious 10"))     harga = 40000;
-            else if (film.equals("Jurassic World"))        harga = 42000;
-            else if (film.equals("Transformer Rise Beast"))harga = 47000;
+            // Penentuan harga dasar otomatis sesuai pilihan film
+            int harga = 0;
+            if (cmbFilm.getSelectedIndex() == 0) harga = 50000;
+            else if (cmbFilm.getSelectedIndex() == 1) harga = 45000;
+            else if (cmbFilm.getSelectedIndex() == 2) harga = 40000;
+            else if (cmbFilm.getSelectedIndex() == 3) harga = 42000;
+            else if (cmbFilm.getSelectedIndex() == 4) harga = 47000;
 
-            Tiket tiket;
-            if (jenis.equals("VIP")) {
-                tiket = new TiketVIP(nama, film, jam, jumlah, harga);
+            int totalBayar = 0;
+            String jenis = cmbJenisTiket.getSelectedItem().toString();
+
+            if (cmbJenisTiket.getSelectedIndex() == 0) {
+                TiketReguler reg = new TiketReguler(nama, film, jam, jumlah, harga);
+                totalBayar = reg.hitungTotal();
             } else {
-                tiket = new TiketReguler(nama, film, jam, jumlah, harga);
+                TiketVIP vip = new TiketVIP(nama, film, jam, jumlah, harga);
+                totalBayar = vip.hitungTotal();
             }
 
-            model.addRow(new Object[]{
-                jenis,
-                tiket.getNama(),       
-                tiket.getFilm(),
-                tiket.getJam(),
-                tiket.getJumlah(),
-                tiket.hitungTotal()
-            });
-            batal(); 
+            // Memasukkan data ke dalam baris JTable
+            DefaultTableModel modelTable = (DefaultTableModel) jTable.getModel();
+            modelTable.addRow(new Object[]{jenis, nama, film, jam, jumlah, totalBayar});
             
+            batal(); // Bersihkan form setelah disimpan
+
         } catch (NumberFormatException e) {
-            // Abaikan error input string pada jumlah
+            JOptionPane.showMessageDialog(null, "Gagal Menyimpan! Pastikan Jumlah diisi menggunakan angka bulat.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
-     // <--- PASTIKAN ADA SATU KURUNG TUTUP DI SINI UNTUK MENUTUP BUTTON// TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -308,60 +310,55 @@ dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-     try {
-        String nama = txtNama.getText();
-        String film = cmbFilm.getSelectedItem().toString();
-        String jam = cmbJam.getSelectedItem().toString();
-        String jenis = cmbJenisTiket.getSelectedItem().toString();
-        
-        if (nama.isEmpty() || txtJumlah.getText().isEmpty()) {
+     if (txtNama.getText().isEmpty() || txtJumlah.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua data inputan harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
-        int jumlah = Integer.parseInt(txtJumlah.getText());
-        int harga = 0;
-        if (film.equals("Avengers Endgame"))          harga = 50000;
-        else if (film.equals("Spiderman No Way Home")) harga = 45000;
-        else if (film.equals("Fast & Furious 10"))     harga = 40000;
-        else if (film.equals("Jurassic World"))        harga = 42000;
-        else if (film.equals("Transformer Rise Beast"))harga = 47000;
 
-        // ==================== 1. PROSES UPCASTING ====================
-        Tiket tiket;
-        if (jenis.equals("VIP")) {
-            tiket = new TiketVIP(nama, film, jam, jumlah, harga);
-        } else {
-            tiket = new TiketReguler(nama, film, jam, jumlah, harga);
+        try {
+            String nama = txtNama.getText();
+            String film = cmbFilm.getSelectedItem().toString();
+            String jam = cmbJam.getSelectedItem().toString();
+            int jumlah = Integer.parseInt(txtJumlah.getText());
+            
+            int harga = 0;
+            if (cmbFilm.getSelectedIndex() == 0) harga = 50000;
+            else if (cmbFilm.getSelectedIndex() == 1) harga = 45000;
+            else if (cmbFilm.getSelectedIndex() == 2) harga = 40000;
+            else if (cmbFilm.getSelectedIndex() == 3) harga = 42000;
+            else if (cmbFilm.getSelectedIndex() == 4) harga = 47000;
+
+            // Penerapan Polimorfisme Runtime
+            if (cmbJenisTiket.getSelectedIndex() == 0) {
+                tiket = new TiketReguler(nama, film, jam, jumlah, harga);
+            } else {
+                tiket = new TiketVIP(nama, film, jam, jumlah, harga);
+            }
+
+            // Tampilkan output ke JTextArea (Kotak Kanan)
+            txtOutput.setText("");
+            txtOutput.append("========= NOTA PEMBELIAN TIKET =========\n");
+            txtOutput.append("Nama Penonton : " + tiket.getNama() + "\n");
+            txtOutput.append("Judul Film    : " + tiket.getFilm() + "\n");
+            txtOutput.append("Jam Tayang    : " + tiket.getJam() + "\n");
+            txtOutput.append("Jumlah Tiket  : " + tiket.getJumlah() + "\n");
+            txtOutput.append("Total Bayar   : Rp " + tiket.hitungTotal() + "\n");
+
+            // Penerapan Downcasting & Instanceof
+            if (tiket instanceof TiketVIP) {
+                TiketVIP vip = (TiketVIP) tiket;
+                txtOutput.append("Fasilitas     : " + vip.hitungTotal() + "\n"); 
+            } else {
+                txtOutput.append("Fasilitas     : Standar Seat\n");
+            }
+            txtOutput.append("========================================\n");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Input Jumlah Tiket harus berupa angka bulat!", "Warning", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            System.out.println("Proses Cetak Tiket Selesai Dieksekusi.");
         }
-        
-        // ==================== 2. PROSES DOWNCASTING ====================
-        String pesanTambahan = "";
-        if (tiket instanceof TiketVIP) {
-            TiketVIP TiketVip = (TiketVIP) tiket;
-            pesanTambahan = "Fasilitas    : Free Snack + Popcorn (VIP Benefit)";
-        } else {
-            TiketReguler tiketReguler = (TiketReguler) tiket;
-            pesanTambahan = "Fasilitas    : Standar Seat";
-        }
-        
-        // ==================== 3. TAMPILKAN KE JTEXTAREA (SESUAI MODUL) ====================
-        // Kosongkan dulu teks bawaan JTextArea sebelum cetak nota baru
-        txtOutput.setText(""); 
-        
-        // Gunakan append bertingkat seperti di modul halaman 112
-        txtOutput.append("=== NOTA PEMESANAN TIKET ===\n");
-        txtOutput.append("--------------------------------------\n");
-        txtOutput.append("Nama         : " + tiket.getNama() + "\n");
-        txtOutput.append("Film         : " + tiket.getFilm() + "\n");
-        txtOutput.append("Jam Tayang   : " + tiket.getJam() + "\n");
-        txtOutput.append("Jumlah Tiket : " + tiket.getJumlah() + "\n");
-        txtOutput.append("Total Bayar  : Rp" + tiket.hitungTotal() + "\n");
-        txtOutput.append("--------------------------------------\n");
-        txtOutput.append(pesanTambahan + "\n"); // Bukti Downcasting sukses
-        
-    } catch (NumberFormatException e) {
-        // Abaikan error angka
-    }// TODO add your handling code here:
+// TODO add your handling code here:
     }//GEN-LAST:event_btnCetakActionPerformed
 
     private void cmbJamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJamActionPerformed

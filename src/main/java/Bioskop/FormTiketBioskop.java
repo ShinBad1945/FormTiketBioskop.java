@@ -336,23 +336,32 @@ dispose();        // TODO add your handling code here:
             }
 
             // Tampilkan output ke JTextArea (Kotak Kanan)
-            txtOutput.setText("");
-            txtOutput.append("========= NOTA PEMBELIAN TIKET =========\n");
-            txtOutput.append("Nama Penonton : " + tiket.getNama() + "\n");
-            txtOutput.append("Judul Film    : " + tiket.getFilm() + "\n");
-            txtOutput.append("Jam Tayang    : " + tiket.getJam() + "\n");
-            txtOutput.append("Jumlah Tiket  : " + tiket.getJumlah() + "\n");
-            txtOutput.append("Total Bayar   : Rp " + tiket.hitungTotal() + "\n");
+txtOutput.setText("");
+txtOutput.append("========= NOTA PEMBELIAN TIKET =========\n");
+txtOutput.append("Nama Penonton : " + tiket.getNama() + "\n");
+txtOutput.append("Judul Film    : " + tiket.getFilm() + "\n");
+txtOutput.append("Jam Tayang    : " + tiket.getJam() + "\n");
+txtOutput.append("Jumlah Tiket  : " + tiket.getJumlah() + "\n");
+txtOutput.append("Total Bayar   : Rp " + tiket.hitungTotal() + "\n");
 
-            // Penerapan Downcasting & Instanceof
-            if (tiket instanceof TiketVIP) {
-                TiketVIP vip = (TiketVIP) tiket;
-                txtOutput.append("Fasilitas     : " + vip.hitungTotal() + "\n"); 
-            } else {
-                txtOutput.append("Fasilitas     : Standar Seat\n");
-            }
-            txtOutput.append("========================================\n");
+// --- BAGIAN BARU DARI IMPLEMENTASI INTERFACE BAB 9 ---
+if (tiket instanceof LayananCetak) {
+    LayananCetak lc = (LayananCetak) tiket;
+    txtOutput.append("Kode Booking  : " + lc.getFormatNotaSingkat() + "\n");
+}
+if (tiket instanceof FasilitasUtama) {
+    FasilitasUtama fu = (FasilitasUtama) tiket;
+    txtOutput.append("Sistem Audio  : " + fu.getInfoAudio() + "\n");
+}
+// -----------------------------------------------------
 
+if (tiket instanceof TiketVIP) {
+    txtOutput.append("Fasilitas     : Premium Seat + Free Snack & Drink\n");
+} else {
+    txtOutput.append("Fasilitas     : Standar Seat\n");
+}
+txtOutput.append("========================================\n");
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Input Jumlah Tiket harus berupa angka bulat!", "Warning", JOptionPane.ERROR_MESSAGE);
         } finally {
